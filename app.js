@@ -1,10 +1,11 @@
+// My practice version
+
 document.addEventListener('DOMContentLoaded', () => {
   const squares = document.querySelectorAll('.grid div');
-  const result = document.querySelector('#result');
-  const displayCurrentPlayer = document.querySelector('#current-player');
-  let currentPlayer = 1;
+  const displayCurrentPlayer = document.querySelector('#currentPlayer');
+  const result = document.querySelector('#winner');
 
-  // winning combonation
+  let currentPlayer = 1;
   const winningArrays = [
     [0, 1, 2, 3],
     [41, 40, 39, 38],
@@ -77,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     [13, 20, 27, 34],
   ];
 
-  // Check checkboard
   function checkBoard() {
     for (let i = 0; i < winningArrays.length; i++) {
       const square1 = squares[winningArrays[i][0]];
@@ -85,33 +85,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const square3 = squares[winningArrays[i][2]];
       const square4 = squares[winningArrays[i][3]];
 
-      // check those squares to see if they all have the class of player one
       if (
         square1.classList.contains('player-one') &&
         square2.classList.contains('player-one') &&
         square3.classList.contains('player-one') &&
         square4.classList.contains('player-one')
       ) {
-        result.innerHTML = 'Player one wins!';
+        result.innerHTML = 'Player 1 wins';
       }
-
-      // check those squares to see if they all have the class of player one
       if (
         square1.classList.contains('player-two') &&
         square2.classList.contains('player-two') &&
         square3.classList.contains('player-two') &&
         square4.classList.contains('player-two')
       ) {
-        result.innerHTML = 'Player Two wins!';
+        result.innerHTML = 'Player 2 wins';
       }
     }
   }
 
-  // Listen for every click on the square
   for (let i = 0; i < squares.length; i++) {
     squares[i].onclick = () => {
-      // if the square below your current square is taken, you can go ontop of it
-      if (squares[i + 7].classList.contains('taken') && !squares[i].classList.contains('taken')) {
+      if (
+        squares[i + 7].classList.contains('taken') &&
+        !squares[i].classList.contains('taken')
+      ) {
         if (currentPlayer == 1) {
           squares[i].classList.add('taken');
           squares[i].classList.add('player-one');
@@ -124,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
           displayCurrentPlayer.innerHTML = currentPlayer;
         }
       } else {
-        alert('Cant go there!');
+        alert("Can't click over there!");
       }
-      checkBoard();  
+      checkBoard();
     };
   }
 });
